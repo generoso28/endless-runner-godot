@@ -1,0 +1,17 @@
+# Godot 4+ specific
+.godot/
+.import/
+export.cfg
+export_presets.cfg
+
+# C# / .NET builds
+bin/
+obj/
+.vscode/
+.vs/
+*.csproj.user
+*.sln.user
+
+# Logs
+logs/
+*.log
