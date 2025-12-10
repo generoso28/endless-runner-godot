@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5e837atilcil"]
+[gd_scene load_steps=13 format=3 uid="uid://c5e837atilcil"]
 
 [ext_resource type="Script" uid="uid://b1jstglk7ya3u" path="res://Scripts/Main.gd" id="1_5icag"]
 [ext_resource type="PackedScene" uid="uid://6yvfoo4q2dqe" path="res://Scenes/Player.tscn" id="1_54ub6"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://2nj8hcjkivqc" path="res://Assets/Fonts/montreal/Montreal-Bold.ttf" id="3_ymi0i"]
 [ext_resource type="AudioStream" uid="uid://c8menbmpoydct" path="res://Assets/Music/menu_music.mp3" id="5_dmodb"]
 [ext_resource type="AudioStream" uid="uid://kivxf1k4tu8s" path="res://Assets/Music/background_music.mp3" id="6_fqrjh"]
+[ext_resource type="Script" uid="uid://bpv66tushlga0" path="res://Scripts/HeadTracker.cs" id="7_jw32o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_trikq"]
 sky_top_color = Color(0.356863, 0.815686, 0.933333, 1)
@@ -30,6 +31,8 @@ volumetric_fog_sky_affect = 0.4
 dof_blur_far_enabled = true
 dof_blur_far_distance = 30.0
 dof_blur_amount = 1.0
+
+[sub_resource type="CameraTexture" id="CameraTexture_jw32o"]
 
 [node name="Main" type="Node3D"]
 process_mode = 3
@@ -158,6 +161,18 @@ stream = ExtResource("5_dmodb")
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("6_fqrjh")
+
+[node name="HeadTracker" type="Node" parent="." node_paths=PackedStringArray("CameraPreview")]
+script = ExtResource("7_jw32o")
+CameraPreview = NodePath("CanvaLayer/CameraPreview")
+
+[node name="CanvaLayer" type="CanvasLayer" parent="HeadTracker"]
+layer = 7
+
+[node name="CameraPreview" type="TextureRect" parent="HeadTracker/CanvaLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CameraTexture_jw32o")
 
 [connection signal="pressed" from="Menu/Container/ButtonStart" to="." method="_on_button_start_pressed"]
 [connection signal="pressed" from="Menu/Container/ButtonLoad" to="." method="_on_button_load_pressed"]
